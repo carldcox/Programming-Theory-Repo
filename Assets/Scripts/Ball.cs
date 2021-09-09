@@ -1,31 +1,34 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class Ball : MonoBehaviour
+[RequireComponent(typeof(Rigidbody))]
+public abstract class Ball : MonoBehaviour
 {
     [SerializeField] protected float size;
     [SerializeField] protected float mass;
 
-    protected Rigidbody BalRigidbody;
-    
+    protected Rigidbody BallRigidbody;
+
+
+    protected void Awake()
+    {
+        BallRigidbody = GetComponent<Rigidbody>();
+    }
     
     // Start is called before the first frame update
     private void Start()
     {
-        BalRigidbody = GetComponent<Rigidbody>();
-        Throw();
+        Resize();
+        SetMass();
     }
-
-    // Update is called once per frame
-    private void Update()
-    {
-        //Make the ball rotate just to see how a mono behaviour works in child classes
-        gameObject.transform.Rotate(Vector3.up, 10.0f);
-    }
-
-    protected virtual void Throw()
+    
+    //INHERITANCE
+    protected virtual void Resize()
     {
         gameObject.transform.localScale = new Vector3(size, size, size);
+    }
+
+    protected virtual void SetMass()
+    {
+        BallRigidbody.mass = mass;
     }
 }
