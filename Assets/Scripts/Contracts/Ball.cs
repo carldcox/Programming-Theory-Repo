@@ -8,7 +8,11 @@ namespace Contracts
         [SerializeField] protected float size;
         [SerializeField] protected float mass;
 
-        protected Rigidbody BallRigidbody;
+        public Rigidbody BallRigidbody
+        {
+            get;
+            private set;
+        }
 
 
         protected void Awake()
